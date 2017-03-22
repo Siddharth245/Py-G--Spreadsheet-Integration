@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script src="http://code.jquery.com/ui/1.10.1/jquery-ui.js"></script>
+  <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+  <script type=text/javascript>
+  $SCRIPT_ROOT = {{ request.script_root|tojson|safe }};
+  </script>
+
+ <script type="text/javascript">
+
+  $(function() {
+    $( "#searchTerm" ).autocomplete(
+    { source: function( request, response ) {
+    $.getJSON("{{url_for('findcompany')}}", {
+        search: request.term,
+    }, response);    
+},
+      minLength: 2,
+      select: function(event, ui){
+        $(this).val(ui.item.value);
+         $(this).parents("form").submit();
+      }
+
+    });
+  });
+
+  function submitform(){
+  		document.getElementById("company_search").submit();
+  }
+  </script>
+
+<title>Search button implementation</title>
+<style>
+body {
+    background-image: url("../static/images/Search_BackGround.jpg");
+    background-repeat: no-repeat;
+    background-position-x: 300px;
+    /*background-color: #259360;
+    /*background-position-y: 100px;*/
+}
+
+table {
+    empty-cells: hide;
+}
+
+/*div#Quick_Search{
+	    margin-top: 200px;
+    	    margin-left: 400px;
+}*/
+
+
+td {
+	border-right: 1px solid #C1DAD7;
+	border-bottom: 1px solid #C1DAD7;
+	background: #fff;
+	padding: 6px 6px 6px 12px;
+	color: #6D929B;
+	cursor: pointer;
+}
+td:hover {
+          background-color: #ffff99;
+        }
+
+td.alt {
+	background: #F5FAFA;
+	color: #B4AA9D;
+}
+
+</style>
+
+</head>
+
+<body background image={}>
+<div id="Quick_Search">
+<h1>Corporate Member <br>Discount</h1>
+<form id="company_search" action="{{url_for('findcompany')}}" method=post>
+	<input type="text"  name="searchPhrase" id="searchTerm" required/>
+	<span>
+	<img src="../static/images/Search_Icon.png" onclick="submitform()"><span>&nbsp;</span>
+	<a href="{{url_for('index')}}"><img src="../static/images/Refresh_Icon.png" ></a>
+	</span>
+</form>
+<br>
+<div id="error"></div>
+<br>
+<div id = "alphabets">
+<a href="{{url_for('searchcompany',alpha="A")}}">A|</a>
+<a href="{{url_for('searchcompany',alpha="B")}}">B|</a>
+<a href="{{url_for('searchcompany',alpha="C")}}">C|</a>
+<a href="{{url_for('searchcompany',alpha="D")}}">D|</a>
+<a href="{{url_for('searchcompany',alpha="E")}}">E|</a>
+<a href="{{url_for('searchcompany',alpha="F")}}">F|</a>
+<a href="{{url_for('searchcompany',alpha="G")}}">G|</a>
+<a href="{{url_for('searchcompany',alpha="H")}}">H|</a>
+<a href="{{url_for('searchcompany',alpha="I")}}">I|</a>
+<a href="{{url_for('searchcompany',alpha="J")}}">J|</a>
+<a href="{{url_for('searchcompany',alpha="K")}}">K|</a>
+<a href="{{url_for('searchcompany',alpha="L")}}">L|</a>
+<a href="{{url_for('searchcompany',alpha="M")}}">M|</a>
+<br>
+<a href="{{url_for('searchcompany',alpha="N")}}">N|</a>
+<a href="{{url_for('searchcompany',alpha="O")}}">O|</a>
+<a href="{{url_for('searchcompany',alpha="P")}}">P|</a>
+<a href="{{url_for('searchcompany',alpha="Q")}}">Q|</a>
+<a href="{{url_for('searchcompany',alpha="R")}}">R|</a>
+<a href="{{url_for('searchcompany',alpha="S")}}">S|</a>
+<a href="{{url_for('searchcompany',alpha="T")}}">T|</a>
+<a href="{{url_for('searchcompany',alpha="U")}}">U|</a>
+<a href="{{url_for('searchcompany',alpha="V")}}">V|</a>
+<a href="{{url_for('searchcompany',alpha="W")}}">W|</a>
+<a href="{{url_for('searchcompany',alpha="X")}}">X|</a>
+<a href="{{url_for('searchcompany',alpha="Y")}}">Y|</a>
+<a href="{{url_for('searchcompany',alpha="Z")}}">Z|</a>
+<br>
+<a href="{{url_for('searchcompany', alpha="other")}}">Other</a>
+</div>
+{% block content %}
+{% endblock %}
+</body>
+</html>

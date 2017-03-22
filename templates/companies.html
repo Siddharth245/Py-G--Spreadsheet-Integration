@@ -1,0 +1,20 @@
+{% extends "index.htm" %}
+{% block content %}
+<br>
+<br>
+<br>
+<table id="listofNames">
+	{% if not data %}
+	<p>There is no data</p>
+	{% else %}
+		{% for company_row in data | batch(5) %}
+			<tr class="row">
+    		{% for company in company_row %}
+    			<td onclick="location.href = '{{url_for('getdetails', name=company)}}'" class="span4" > {{ company }}</td>
+    		{% endfor %}
+			</tr>
+		{% endfor %}	
+	{% endif %}
+</table>
+{% endblock %}
+
